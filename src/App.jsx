@@ -1,130 +1,108 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { useTheme } from './context/ThemeContext';
-import { useAuth } from './context/AuthContext';
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import Hero from "./components/sections/Hero";
-import About from "./components/pages/About";
-import Skills from "./components/sections/Skills";
-import Projects from "./components/sections/Projects";
-import WorkHistory from "./components/pages/WorkHistory";
-import Testimonials from "./components/sections/Testimonials";
-import ContactAndRates from "./components/sections/ContactAndRates";
-import CommentBox from "./components/common/CommentBox";
-import FAQ from "./components/common/FAQ";
-import CommentsSection from "./components/common/CommentsSection";
-import LoginModal from "./components/common/LoginModal";
-import AdminDashboard from "./components/admin/AdminDashboard";
-import "./index.css";
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { getAllPortfolioData, submitContactForm } from './lib/supabase';
+import Navigation from './components/Navigation';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
-  const { theme } = useTheme();
-  const { currentUser, isAdmin, login, logout, loading } = useAuth();
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const portfolioData = await getAllPortfolioData();
+        setData(portfolioData);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching portfolio data:', err);
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (loading) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${
-        theme === 'light' ? 'bg-gray-50' : 'bg-gray-900'
-      }`}>
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-emerald-500"></div>
+      <div className="min-h-screen bg-dark-950 flex items-center justify-center">
+        <div className="text-center">
+          <motion.div
+            className="w-20 h-20 border-4 border-primary-500/30 border-t-primary-500 rounded-full mx-auto mb-4"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.p
+            className="text-gray-400"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            Loading portfolio... 🚀
+          </motion.p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-dark-950 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">😕</div>
+          <h2 className="text-2xl font-bold text-white mb-2">Oops! Something went wrong</h2>
+          <p className="text-gray-400 mb-4">{error}</p>
+          <p className="text-sm text-gray-500 mb-4">
+            Make sure you have set up your Supabase credentials in .env file
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="btn-primary"
+          >
+            Reload Page
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className={`relative min-h-screen transition-colors duration-500 ${
-      theme === 'light'
-        ? 'bg-white text-gray-900'
-        : 'bg-gray-900 text-gray-100'
-    }`}>
-      {/* Navbar */}
-      <Navbar />
+    <div className="bg-dark-950 min-h-screen overflow-x-hidden">
+      <Navigation />
 
-      {/* Login Modal */}
-      <LoginModal
-        isOpen={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
-        onLogin={login}
-      />
-
-      {/* Main Content */}
       <main>
-        {/* Hero Section */}
-        <div id="home">
-          <Hero />
-        </div>
+        <Hero
+          profile={data?.profile}
+          social={data?.profile?.social}
+        />
 
-        {/* Admin Dashboard - Only visible when logged in as admin */}
-        {currentUser && isAdmin && (
-          <div className={`py-12 ${theme === 'light' ? 'bg-white' : 'bg-gray-900'}`}>
-            <AdminDashboard />
-          </div>
-        )}
+        <About
+          profile={data?.profile}
+          education={data?.education}
+        />
 
-        {/* About Section */}
-        <div id="about">
-          <About />
-        </div>
+        <Skills skills={data?.skills} />
 
-        {/* Skills Section */}
-        <div id="skills">
-          <Skills />
-        </div>
+        <Experience experience={data?.experience} />
 
-        {/* Projects Section */}
-        <div id="projects">
-          <Projects />
-        </div>
+        <Projects projects={data?.projects} />
 
-        {/* Work History Section */}
-        <div id="experience">
-          <WorkHistory />
-        </div>
-
-        {/* Testimonials Section */}
-        <section className={`py-12 ${
-          theme === 'light'
-            ? 'bg-gray-100'
-            : 'bg-gray-800/30'
-        }`}>
-          <div className="container mx-auto px-4">
-            <Testimonials />
-          </div>
-        </section>
-
-        {/* Contact and Rates Section */}
-        <div id="contact">
-          <ContactAndRates />
-        </div>
-
-        {/* Comment Box */}
-        <section className={`py-12 ${
-          theme === 'light'
-            ? 'bg-emerald-50'
-            : 'bg-emerald-900/10'
-        }`}>
-          <div className="container mx-auto px-4">
-            <CommentBox />
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className={`py-12 ${
-          theme === 'light' ? 'bg-white' : 'bg-gray-900'
-        }`}>
-          <div className="container mx-auto px-4">
-            <FAQ />
-          </div>
-        </section>
-
-        {/* Comments Section */}
-        <CommentsSection />
+        <Contact
+          profile={data?.profile}
+          contact={data?.profile}
+          onSubmitMessage={submitContactForm}
+        />
       </main>
 
-      {/* Footer */}
-      <Footer />
+      <Footer profile={data?.profile} />
     </div>
   );
 }
