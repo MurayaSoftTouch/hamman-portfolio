@@ -13,7 +13,7 @@ git add .
 git commit -m "Portfolio ready for deployment"
 
 # Create repo on GitHub, then:
-git remote add origin https://github.com/YOUR_USERNAME/victor-portfolio.git
+git remote add origin https://github.com/YOUR_USERNAME/hamman-portfolio.git
 git branch -M main
 git push -u origin main
 ```
@@ -23,7 +23,7 @@ git push -u origin main
 1. Go to https://app.netlify.com
 2. Click **"Add new site"** → **"Import an existing project"**
 3. Choose **GitHub**
-4. Select your `victor-portfolio` repo
+4. Select your `hamman-portfolio` repo
 5. Click **"Deploy site"**
 
 **Done!** Your site is live at `https://random-name.netlify.app`

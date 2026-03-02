@@ -1,6 +1,6 @@
 # 🚀 Netlify CI/CD Deployment Guide
 
-## Stealth Deployment Setup for Victor Njoroge's Portfolio
+## Stealth Deployment Setup for Hamman Muraya's Portfolio
 
 This guide will help you set up automatic deployments to Netlify with live updates.
 
@@ -34,7 +34,7 @@ git add .
 git commit -m "Initial portfolio setup with CI/CD"
 
 # Create a new repository on GitHub, then:
-git remote add origin https://github.com/YOUR_USERNAME/victor-portfolio.git
+git remote add origin https://github.com/YOUR_USERNAME/hamman-portfolio.git
 
 # Push to GitHub
 git branch -M main
@@ -47,7 +47,7 @@ git push -u origin main
 2. Click **"Add new site"** → **"Import an existing project"**
 3. Select **GitHub**
 4. Authorize Netlify to access your GitHub account
-5. Select your `victor-portfolio` repository
+5. Select your `hamman-portfolio` repository
 6. Netlify will auto-detect settings:
    - **Build command**: `npm run build`
    - **Publish directory**: `dist`
@@ -101,7 +101,7 @@ netlify init
 Follow the prompts:
 - Create & configure a new site
 - Select your team (if applicable)
-- Site name: `victor-njoroge-portfolio` (or custom)
+- Site name: `hamman-muraya-portfolio` (or custom)
 - Build command: `npm run build`
 - Publish directory: `dist`
 
@@ -154,7 +154,7 @@ netlify env:set VARIABLE_NAME value
 
 1. Go to **Domain settings** in Netlify dashboard
 2. Click **"Add custom domain"**
-3. Enter your domain (e.g., `victornjoroge.com`)
+3. Enter your domain (e.g., `hammanmuraya.com`)
 4. Follow DNS configuration instructions
 5. Netlify will automatically provision SSL certificate
 

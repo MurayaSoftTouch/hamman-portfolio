@@ -15,7 +15,7 @@
 
 1. Click **"New Project"**
 2. Fill in:
-   - **Name**: `victor-portfolio`
+   - **Name**: `hamman-portfolio`
    - **Database Password**: (choose a strong password, save it!)
    - **Region**: Choose closest to you
 3. Click **"Create new project"**
@@ -173,13 +173,13 @@ INSERT INTO projects (title, type, description, tags, year, category) VALUES
 -- Insert initial testimonials
 INSERT INTO testimonials (name, role, content, rating) VALUES
 ('Amina Diallo', 'Software Engineering Lead', 
- 'Victor''s expertise in AI and full-stack development transformed our product. His ability to implement complex RLHF systems is remarkable.', 5),
+ 'Hamman''s expertise in AI and full-stack development transformed our product. His ability to implement complex RLHF systems is remarkable.', 5),
 
 ('Kofi Asante', 'AI Startup Founder',
- 'The LLM training platform Victor developed for our startup exceeded our expectations. Professional, efficient, and innovative.', 5),
+ 'The LLM training platform Hamman developed for our startup exceeded our expectations. Professional, efficient, and innovative.', 5),
 
 ('Fatima Okafor', 'Data Science Manager',
- 'Victor''s technical skills in machine learning are exceptional. He helped us build robust models with outstanding performance.', 5);
+ 'Hamman''s technical skills in machine learning are exceptional. He helped us build robust models with outstanding performance.', 5);
 ```
 
 ---
@@ -304,7 +304,7 @@ More than enough for a portfolio!
 ## 🎯 Test It:
 
 1. Open your Netlify site
-2. Login as admin (victor009@gmail.com)
+2. Login as admin (hamanmuraya009@gmail.com)
 3. Go to Admin Dashboard
 4. Add/Edit/Delete a project
 5. **Refresh the page** - data persists! ✅

@@ -52,7 +52,7 @@ cd /home/la-patrona/portfolio
 git init
 git add .
 git commit -m "Ready for deployment"
-git remote add origin https://github.com/YOUR_USERNAME/victor-portfolio.git
+git remote add origin https://github.com/YOUR_USERNAME/hamman-portfolio.git
 git push -u origin main
 
 # 2. Connect on Netlify
@@ -171,7 +171,7 @@ netlify env:set VARIABLE_NAME value
 
 1. Go to Netlify Dashboard → **Domain settings**
 2. Click **"Add custom domain"**
-3. Enter: `victornjoroge.com` (or your domain)
+3. Enter: `hammanmuraya.com` (or your domain)
 4. Update DNS records as instructed
 5. SSL certificate is automatic!
 

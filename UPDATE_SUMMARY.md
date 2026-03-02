@@ -11,7 +11,7 @@
   - `VITE_ADMIN_PASSWORD` - Admin password
 
 **Default credentials (if env vars not set):**
-- Email: victor009@gmail.com
+- Email: hamanmuraya009@gmail.com
 - Password: Lovelight369$
 
 **To customize:**
@@ -24,7 +24,7 @@
 The portfolio now features 5 projects:
 
 1. **Portfolio Website**
-   - Link: https://victornjoroge1.netlify.app/
+   - Link: https://hammanmuraya1.netlify.app/
    - Tech: React, Vite, Tailwind CSS, Framer Motion
 
 2. **Ajali - Emergency Incident Reporting**

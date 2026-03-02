@@ -73,7 +73,7 @@ git push origin main
 ## ✅ Test It!
 
 1. Open your Netlify site
-2. Login as admin: `victor009@gmail.com` / `Lovelight369$`
+2. Login as admin: `hamanmuraya009@gmail.com` / `YourPasswordHere`
 3. Go to Admin Dashboard
 4. Add a new project
 5. **Refresh the page** → Project still there! ✅

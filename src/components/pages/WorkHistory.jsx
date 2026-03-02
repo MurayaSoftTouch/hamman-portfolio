@@ -32,9 +32,9 @@ const WorkHistory = () => {
   const workHistory = [
     {
       id: 1,
-      company: "Snorkel AI",
+      company: "Leading AI Company",
       location: "Remote",
-      role: "Expert Contributor (Gauss HLE Project)",
+      role: "Expert Contributor (HLE Project)",
       period: "Oct 2025 – Feb 2026",
       icon: '🤖',
       color: 'from-emerald-400 to-cyan-400',
@@ -48,9 +48,9 @@ const WorkHistory = () => {
     },
     {
       id: 2,
-      company: "Alignerr",
+      company: "AI Training Platform",
       location: "Remote",
-      role: "AI Trainer & Model Evaluator (Code Human Preference & Sigma Projects)",
+      role: "AI Trainer & Model Evaluator (Code & Math Projects)",
       period: "Aug 2025 – Feb 2026",
       icon: '🧠',
       color: 'from-blue-400 to-purple-400',
@@ -64,9 +64,9 @@ const WorkHistory = () => {
     },
     {
       id: 3,
-      company: "Telus International",
+      company: "Global AI Services Company",
       location: "Remote",
-      role: "Senior AI Trainer & Responsible AI Maker (Armadillo & Knowledge Projects)",
+      role: "Senior AI Trainer & Responsible AI Maker",
       period: "Jun 2025 – Jan 2026",
       icon: '⚖️',
       color: 'from-orange-400 to-red-400',
@@ -81,7 +81,7 @@ const WorkHistory = () => {
     },
     {
       id: 4,
-      company: "Telus Digital",
+      company: "International AI Company",
       location: "Remote, USA",
       role: "Senior AI Trainer & Software Engineer",
       period: "Jul 2023 – May 2025",

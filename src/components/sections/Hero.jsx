@@ -85,16 +85,16 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [displayedText, isDeleting, currentTextIndex, typingSpeed]);
 
-  // Particle system
+  // Particle system - Victor's style with more particles
   const [particles, setParticles] = useState([]);
   useEffect(() => {
-    const newParticles = Array.from({ length: 50 }, (_, i) => ({
+    const newParticles = Array.from({ length: 40 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 4 + 1,
-      duration: Math.random() * 20 + 10,
-      delay: Math.random() * 5,
+      size: Math.random() * 2 + 1,
+      duration: Math.random() * 3 + 2,
+      delay: Math.random() * 2,
     }));
     setParticles(newParticles);
   }, []);
@@ -159,41 +159,57 @@ const Hero = () => {
 
       <section
         ref={containerRef}
-        className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-500 ${
-          theme === 'light' 
-            ? 'bg-gradient-to-br from-gray-50 via-blue-50 to-emerald-50' 
-            : 'bg-gradient-to-br from-gray-900 via-emerald-950 to-black'
-        }`}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        {/* Animated Grid Background */}
-        <div className={`absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:50px_50px] ${
-          theme === 'light' ? 'opacity-50' : 'opacity-100'
-        }`} />
+        {/* Animated Gradient Background - Green/Navy theme (Victor's style) */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${
+          theme === 'light'
+            ? 'from-emerald-900 via-green-900 to-emerald-950'
+            : 'from-gray-900 via-emerald-950 to-black'
+        }`}></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
 
-        {/* Radial Gradient Overlay */}
-        <div className={`absolute inset-0 ${
-          theme === 'light' 
-            ? 'bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.05),transparent_70%)]' 
-            : 'bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.1),transparent_70%)]'
-        }`} />
+        {/* Floating Orbs - Muted green colors (Victor's style) */}
+        <motion.div
+          className="absolute top-20 left-10 w-96 h-96 bg-emerald-600/15 rounded-full mix-blend-multiply filter blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute top-40 right-10 w-96 h-96 bg-green-600/15 rounded-full mix-blend-multiply filter blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-1/2 w-96 h-96 bg-emerald-700/15 rounded-full mix-blend-multiply filter blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            x: [0, 30, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+        />
 
-        {/* Floating Particles */}
+        {/* Floating Particles - Victor's pulse style */}
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
-            className={`absolute rounded-full ${
-              theme === 'light' ? 'bg-emerald-400/30' : 'bg-emerald-500/20'
-            }`}
+            className="absolute w-1 h-1 bg-emerald-400/40 rounded-full"
             style={{
               left: `${particle.x}%`,
               top: `${particle.y}%`,
-              width: particle.size,
-              height: particle.size,
             }}
             animate={{
-              y: [0, -100, 0],
-              opacity: [0, 0.5, 0],
-              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+              scale: [0, 1.5, 0],
             }}
             transition={{
               duration: particle.duration,
@@ -204,74 +220,17 @@ const Hero = () => {
           />
         ))}
 
-        {/* Floating Code Snippets */}
-        {codeSnippets.map((snippet, index) => (
-          <motion.div
-            key={index}
-            className={`absolute hidden lg:block font-mono text-sm ${
-              theme === 'light' ? 'text-emerald-600/15' : 'text-emerald-500/10'
-            }`}
-            style={{ left: snippet.x, top: snippet.y }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.3, 0.6, 0.3],
-              x: mouseX.get() * 20,
-            }}
-            transition={{
-              duration: 4,
-              delay: snippet.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            {snippet.code}
-          </motion.div>
-        ))}
-
-        {/* Animated Gradient Orbs */}
-        <motion.div
-          className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full mix-blend-screen filter blur-3xl opacity-30 ${
-            theme === 'light' ? 'bg-emerald-300/30' : 'bg-emerald-500/20'
-          }`}
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className={`absolute top-1/3 right-1/4 w-96 h-96 rounded-full mix-blend-screen filter blur-3xl opacity-30 ${
-            theme === 'light' ? 'bg-cyan-300/30' : 'bg-cyan-500/20'
-          }`}
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className={`absolute bottom-1/4 left-1/3 w-96 h-96 rounded-full mix-blend-screen filter blur-3xl opacity-30 ${
-            theme === 'light' ? 'bg-purple-300/30' : 'bg-purple-500/20'
-          }`}
-          animate={{
-            scale: [1, 1.1, 1],
-            x: [0, 80, 0],
-            y: [0, -80, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        />
+        {/* Decorative Lines (Victor's style) */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+          <div className="absolute bottom-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent"></div>
+        </div>
 
         {/* Mouse Follow Spotlight */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: `radial-gradient(600px circle at ${50 + mouseX.get() * 50}% ${50 + mouseY.get() * 50}%, ${
-              theme === 'light' 
-                ? 'rgba(16, 185, 129, 0.08)' 
-                : 'rgba(16, 185, 129, 0.1)'
-            }, transparent 40%)`,
+            background: `radial-gradient(500px circle at ${50 + mouseX.get() * 50}% ${50 + mouseY.get() * 50}%, rgba(16, 185, 129, 0.08), transparent 40%)`,
           }}
         />
 
@@ -346,272 +305,150 @@ const Hero = () => {
         >
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <motion.div variants={itemVariants} className="text-center lg:text-left flex-1">
-              {/* Availability Badge with Pulse */}
+              {/* Greeting Badge - Victor's style */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className={`inline-block mb-4 px-4 py-2 border rounded-full relative overflow-hidden group cursor-pointer ${
+                transition={{ delay: 0.2 }}
+                className={`inline-flex items-center gap-2 px-4 py-2 backdrop-blur-md rounded-full border mb-6 ${
                   theme === 'light'
-                    ? 'bg-emerald-100/50 border-emerald-300'
-                    : 'bg-emerald-500/10 border-emerald-500/20'
+                    ? 'bg-white/20 border-emerald-300/50'
+                    : 'bg-white/10 border-emerald-500/30'
                 }`}
-                whileHover={{ scale: 1.05 }}
               >
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-cyan-500/20 to-emerald-500/20"
-                  animate={{ x: ['-100%', '100%'] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                />
-                <span className={`relative z-10 text-sm font-medium flex items-center gap-2 ${
-                  theme === 'light' ? 'text-emerald-700' : 'text-emerald-400'
-                }`}>
-                  <motion.span
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    🚀
-                  </motion.span>
-                  Available for Hire
-                  <Sparkles className="w-4 h-4" />
+                <span className="text-2xl">👋</span>
+                <span className={`font-medium ${theme === 'light' ? 'text-emerald-800' : 'text-white/90'}`}>
+                  Welcome to my portfolio
                 </span>
               </motion.div>
 
-              {/* Name with Gradient and Glow */}
+              {/* Name with Glow - Victor's style */}
               <motion.h1
-                className={`text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 leading-tight ${
-                  theme === 'light' ? 'text-gray-900' : 'text-white'
-                }`}
-                initial={{ opacity: 0, y: 30 }}
+                className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight"
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
               >
-                <span className="relative">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-300% animate-gradient">
-                    {PERSONAL_INFO.name}
-                  </span>
-                  <motion.div
-                    className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                  />
+                <span className="block">Hello, I'm</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-300 to-emerald-400 drop-shadow-2xl">
+                  {PERSONAL_INFO.name}
                 </span>
               </motion.h1>
 
-              {/* Title with Typing Animation Effect */}
-              <motion.h2
-                className={`text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 ${
-                  theme === 'light' ? 'text-emerald-600' : 'text-emerald-400'
-                }`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <span className="inline-flex items-center gap-2">
-                  <Zap className="w-6 h-6" />
-                  {PERSONAL_INFO.title}
-                </span>
-              </motion.h2>
-
-              {/* Description with Highlight */}
+              {/* Title with Animated Background - Victor's style */}
               <motion.p
-                className={`text-lg max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed ${
-                  theme === 'light' ? 'text-gray-600' : 'text-gray-300'
-                }`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-xl md:text-2xl text-white/90 mb-8 font-medium"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
               >
-                Transforming ideas into{' '}
-                <span className={`${theme === 'light' ? 'text-emerald-600' : 'text-emerald-400'} font-semibold relative`}>
-                  innovative solutions
-                  <motion.span
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-emerald-500/50"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.8, delay: 1 }}
-                  />
-                </span>{' '}
-                through cutting-edge technology, AI expertise, and strategic thinking.
+                <span className={`inline-block px-6 py-3 backdrop-blur-md rounded-xl border ${
+                  theme === 'light'
+                    ? 'bg-emerald-600/20 border-emerald-500/30'
+                    : 'bg-white/10 border-emerald-500/30'
+                }`}>
+                  💻 {PERSONAL_INFO.title}
+                </span>
               </motion.p>
 
-              {/* Follow Hamman Social Icons */}
+              {/* Description - Victor's style */}
+              <motion.p
+                className={`text-lg mb-10 max-w-xl mx-auto lg:mx-0 ${
+                  theme === 'light' ? 'text-white/70' : 'text-white/80'
+                }`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.8 }}
+              >
+                Passionate about creating innovative solutions through technology. Specializing in AI training, software development, and scalable systems.
+              </motion.p>
+
+              {/* CTA Buttons - Victor's style */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className={`mb-6 p-4 rounded-2xl border-2 inline-block ${
-                  theme === 'light'
-                    ? 'bg-white/80 border-emerald-300 shadow-lg shadow-emerald-500/10'
-                    : 'bg-white/5 border-emerald-500/30 shadow-lg shadow-emerald-500/20'
-                }`}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10"
               >
-                <p className={`text-sm font-bold mb-3 text-center ${
-                  theme === 'light' ? 'text-gray-700' : 'text-gray-300'
-                }`}>
-                  🔔 Follow Hamman
-                </p>
-                <div className="flex gap-3">
-                  {/* GitHub */}
-                  <motion.a
-                    href={PERSONAL_INFO.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.2, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`relative group p-3 rounded-xl transition-all duration-300 ${
-                      theme === 'light'
-                        ? 'bg-gray-900 text-white hover:bg-gray-800'
-                        : 'bg-gray-800 text-white hover:bg-gray-700'
-                    } shadow-lg hover:shadow-xl`}
-                    title="Follow on GitHub"
-                  >
-                    <Github className="w-6 h-6" />
-                    <motion.span
-                      initial={{ opacity: 0, y: 10 }}
-                      whileHover={{ opacity: 1, y: -35 }}
-                      className="absolute left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-lg whitespace-nowrap pointer-events-none"
-                    >
-                      GitHub 👨‍💻
-                    </motion.span>
-                  </motion.a>
-                  
-                  {/* LinkedIn */}
-                  <motion.a
-                    href={PERSONAL_INFO.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.2, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="relative group p-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800"
-                    title="Connect on LinkedIn"
-                  >
-                    <Linkedin className="w-6 h-6" />
-                    <motion.span
-                      initial={{ opacity: 0, y: 10 }}
-                      whileHover={{ opacity: 1, y: -35 }}
-                      className="absolute left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-lg whitespace-nowrap pointer-events-none"
-                    >
-                      LinkedIn 💼
-                    </motion.span>
-                  </motion.a>
-                  
-                  {/* Email */}
-                  <motion.a
-                    href={`mailto:${PERSONAL_INFO.email}`}
-                    whileHover={{ scale: 1.2, y: -5 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="relative group p-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white transition-all duration-300 shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-cyan-600"
-                    title="Send Email"
-                  >
-                    <Mail className="w-6 h-6" />
-                    <motion.span
-                      initial={{ opacity: 0, y: 10 }}
-                      whileHover={{ opacity: 1, y: -35 }}
-                      className="absolute left-1/2 -translate-x-1/2 px-3 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-lg whitespace-nowrap pointer-events-none"
-                    >
-                      Email ✉️
-                    </motion.span>
-                  </motion.a>
-                </div>
-              </motion.div>
-
-              {/* CTA Buttons with Advanced Effects */}
-              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-                {/* Social Links */}
-                <div className="flex gap-4">
-                  <motion.a
-                    href={PERSONAL_INFO.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`p-4 backdrop-blur-sm rounded-xl border transition-all duration-300 group relative overflow-hidden ${
-                      theme === 'light'
-                        ? 'bg-gray-100/80 border-gray-300 hover:border-gray-400'
-                        : 'bg-white/10 border-gray-500/20 hover:border-gray-400/50'
-                    }`}
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-gray-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
-                    <Github className={`w-6 h-6 transition-colors relative z-10 ${
-                      theme === 'light' ? 'text-gray-600 group-hover:text-gray-800' : 'text-gray-300 group-hover:text-white'
-                    }`} />
-                  </motion.a>
-                  <motion.a
-                    href={PERSONAL_INFO.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`p-4 backdrop-blur-sm rounded-xl border transition-all duration-300 group relative overflow-hidden ${
-                      theme === 'light'
-                        ? 'bg-blue-100/80 border-blue-300 hover:border-blue-400'
-                        : 'bg-white/10 border-blue-500/20 hover:border-blue-400/50'
-                    }`}
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
-                    <Linkedin className={`w-6 h-6 transition-colors relative z-10 ${
-                      theme === 'light' ? 'text-blue-600 group-hover:text-blue-800' : 'text-blue-400 group-hover:text-blue-300'
-                    }`} />
-                  </motion.a>
-                </div>
-
-                {/* Download CV Button */}
-                <motion.a
-                  href="/Hamman_Muraya_Complete_CV.pdf"
-                  download
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`group px-8 py-4 backdrop-blur-sm font-medium rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden ${
+                <a
+                  href="#projects"
+                  className="group relative px-8 py-4 bg-gradient-to-r from-emerald-600 to-green-700 text-white font-bold rounded-full shadow-lg hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-300 overflow-hidden text-lg"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative flex items-center gap-2">
+                    <span className="text-2xl">🎯</span>
+                    View My Work
+                    <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </a>
+                <a
+                  href="#contact"
+                  className={`group px-8 py-4 font-bold rounded-full border-2 transition-all duration-300 text-lg ${
                     theme === 'light'
-                      ? 'bg-emerald-100/80 text-emerald-700 border border-emerald-300 hover:border-emerald-400 hover:shadow-emerald-500/25'
-                      : 'bg-white/10 text-emerald-400 border border-emerald-500/20 hover:shadow-xl'
+                      ? 'bg-white/20 border-emerald-400 text-emerald-800 hover:bg-white/30'
+                      : 'bg-white/10 backdrop-blur-md border-white/40 text-white hover:bg-white/20'
                   }`}
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10"
-                    initial={{ x: '-100%' }}
-                    whileHover={{ x: '100%' }}
-                    transition={{ duration: 0.5 }}
-                  />
-                  <Download className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                  <span className="relative z-10">Download CV</span>
-                </motion.a>
+                  <span className="flex items-center gap-2">
+                    <span className="text-2xl">📬</span>
+                    Contact Me
+                  </span>
+                </a>
+              </motion.div>
 
-                {/* Primary CTA Button */}
-                {!currentUser ? (
-                  <motion.button
-                    onClick={() => setShowLoginModal(true)}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group px-8 py-4 bg-gradient-to-r from-emerald-600 via-cyan-600 to-emerald-600 bg-300% text-white font-medium rounded-xl shadow-lg hover:shadow-emerald-500/50 transform transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden"
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                      initial={{ x: '-100%' }}
-                      whileHover={{ x: '100%' }}
-                      transition={{ duration: 0.6 }}
-                    />
-                    <User className="w-5 h-5" />
-                    <span className="relative z-10">Admin Login</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </motion.button>
-                ) : (
-                  <motion.button
-                    onClick={logout}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group px-8 py-4 bg-gradient-to-r from-red-600 via-orange-600 to-red-600 bg-300% text-white font-medium rounded-xl shadow-lg hover:shadow-red-500/50 transform transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden"
-                  >
-                    <LogOut className="w-5 h-5" />
-                    <span className="relative z-10">Logout</span>
-                  </motion.button>
-                )}
+              {/* Social Links - Victor's style */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7, duration: 0.8 }}
+                className="flex items-center justify-center lg:justify-start gap-4"
+              >
+                <span className={`text-sm ${theme === 'light' ? 'text-white/60' : 'text-white/70'}`}>
+                  Follow me:
+                </span>
+                <motion.a
+                  href={`mailto:${PERSONAL_INFO.email}`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`group w-12 h-12 backdrop-blur-md rounded-full flex items-center justify-center border transition-all duration-300 ${
+                    theme === 'light'
+                      ? 'bg-white/20 border-emerald-300/50 hover:bg-gradient-to-br hover:from-emerald-600 hover:to-green-700'
+                      : 'bg-white/10 border-white/20 hover:bg-gradient-to-br hover:from-emerald-600 hover:to-green-700'
+                  }`}
+                  title="Send Email"
+                >
+                  <span className="text-xl group-hover:animate-bounce">📧</span>
+                </motion.a>
+                <motion.a
+                  href={PERSONAL_INFO.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`group w-12 h-12 backdrop-blur-md rounded-full flex items-center justify-center border transition-all duration-300 ${
+                    theme === 'light'
+                      ? 'bg-white/20 border-emerald-300/50 hover:bg-gradient-to-br hover:from-blue-600 hover:to-blue-800'
+                      : 'bg-white/10 border-white/20 hover:bg-gradient-to-br hover:from-blue-600 hover:to-blue-800'
+                  }`}
+                  title="Connect on LinkedIn"
+                >
+                  <span className="text-xl group-hover:animate-bounce">💼</span>
+                </motion.a>
+                <motion.a
+                  href={PERSONAL_INFO.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className={`group w-12 h-12 backdrop-blur-md rounded-full flex items-center justify-center border transition-all duration-300 ${
+                    theme === 'light'
+                      ? 'bg-white/20 border-emerald-300/50 hover:bg-gradient-to-br hover:from-emerald-700 hover:to-green-800'
+                      : 'bg-white/10 border-white/20 hover:bg-gradient-to-br hover:from-emerald-700 hover:to-green-800'
+                  }`}
+                  title="Follow on GitHub"
+                >
+                  <span className="text-xl group-hover:animate-bounce">👨‍💻</span>
+                </motion.a>
               </motion.div>
 
               {/* Quick Contact Info */}
@@ -620,15 +457,13 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 }}
                 className={`mt-8 flex flex-wrap gap-4 justify-center lg:justify-start text-sm ${
-                  theme === 'light' ? 'text-gray-600' : 'text-gray-400'
+                  theme === 'light' ? 'text-white/60' : 'text-white/70'
                 }`}
               >
                 <motion.a
                   href={`mailto:${PERSONAL_INFO.email}`}
-                  whileHover={{ scale: 1.05, color: theme === 'light' ? '#059669' : '#34d399' }}
-                  className={`flex items-center gap-2 transition-colors ${
-                    theme === 'light' ? 'hover:text-emerald-600' : 'hover:text-emerald-400'
-                  }`}
+                  whileHover={{ scale: 1.05, color: '#34d399' }}
+                  className="flex items-center gap-2 transition-colors hover:text-emerald-400"
                 >
                   <Mail className="w-4 h-4" />
                   {PERSONAL_INFO.email}
@@ -638,7 +473,7 @@ const Hero = () => {
                   whileHover={{ scale: 1.05 }}
                   className="flex items-center gap-2"
                 >
-                  <Star className={`w-4 h-4 ${theme === 'light' ? 'text-yellow-600' : 'text-yellow-500'}`} />
+                  <Star className="w-4 h-4 text-yellow-500" />
                   Top Rated Developer
                 </motion.span>
               </motion.div>
