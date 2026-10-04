@@ -1,0 +1,56 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens.
+ * Warm paper, near-black ink and a single rust accent. Contrast ratios against `paper`:
+ * ink ≈ 16:1, muted ≈ 7:1, accent ≈ 6.2:1 (all WCAG AA for body text).
+ */
+@theme {
+  --color-paper: #f7f5f0;
+  --color-surface: #fdfcf9;
+  --color-ink: #1b1a17;
+  --color-muted: #57534c;
+  --color-line: #e3dfd6;
+  --color-line-strong: #cbc5b8;
+  --color-accent: #9c3d16;
+  --color-accent-strong: #7f3010;
+  --color-accent-soft: #f4e7de;
+
+  --font-sans:
+    'IBM Plex Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-accent-soft text-ink;
+  }
+
+  :focus-visible {
+    @apply rounded-sm outline-2 outline-offset-2 outline-accent;
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@utility container-page {
+  @apply mx-auto w-full max-w-5xl px-5 sm:px-8;
+}
