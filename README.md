@@ -1,6 +1,6 @@
 # Haman Muraya — Portfolio
 
-Source for [hamanporfolio.vercel.app](https://hamanporfolio.vercel.app/), the personal site of
+Source for [hamman-portfolio.vercel.app](https://hamman-portfolio.vercel.app/), the personal site of
 Haman Muraya, a senior software engineer working on backend and distributed systems, cloud
 platforms and AI systems.
 

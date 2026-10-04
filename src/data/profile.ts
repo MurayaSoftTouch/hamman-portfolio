@@ -12,7 +12,7 @@ export const profile: Profile = {
     'Alongside that, I have long experience evaluating and training ML and large language models: benchmarks, adversarial evaluations, scoring rubrics and reviews of AI-generated code. I treat model quality as an engineering problem, held to the same standard as the services around it.',
   ],
   email: 'hamanmuraya009@gmail.com',
-  siteUrl: 'https://hamanporfolio.vercel.app/',
+  siteUrl: 'https://hamman-portfolio.vercel.app/',
   github: { label: 'GitHub', href: 'https://github.com/MurayaSoftTouch' },
   linkedin: { label: 'LinkedIn', href: 'https://linkedin.com/in/haman-mur' },
 }
