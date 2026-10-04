@@ -1,5 +1,7 @@
 # Haman Muraya — Portfolio
 
+[![CI](https://github.com/MurayaSoftTouch/hamman-portfolio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MurayaSoftTouch/hamman-portfolio/actions/workflows/ci.yml)
+
 Source for [hamman-portfolio.vercel.app](https://hamman-portfolio.vercel.app/), the personal site of
 Haman Muraya, a senior software engineer working on backend and distributed systems, cloud
 platforms and AI systems.
@@ -65,7 +67,7 @@ not add metrics, live-demo links or claims that cannot be verified.
 
 ## Development
 
-Requires Node.js 22 or later (see `.nvmrc`).
+Requires Node.js 22 or later. CI uses the Node.js LTS pinned in `.nvmrc`.
 
 ```bash
 npm install
@@ -100,12 +102,16 @@ The first Playwright run needs a browser: `npx playwright install chromium`.
 
 ## CI
 
-`.github/workflows/ci.yml` runs on pushes and pull requests to `main`:
+`.github/workflows/ci.yml` runs on pushes and pull requests to `main`. It checks quality only —
+deployment is handled by Vercel's Git integration, so nothing in CI deploys.
 
-1. `verify` — install, typecheck, lint, format check, unit tests, build.
-2. `e2e` — Playwright against the production build (runs after `verify`).
+1. **Verify** — `npm ci`, typecheck, lint, format check, unit tests, production build.
+2. **E2E** — runs after Verify. Playwright builds the app and tests the `vite preview` output in
+   desktop and mobile Chromium. The report, traces and screenshots are uploaded only when it
+   fails, and kept for 7 days.
 
-No secrets are required.
+The workflow has a read-only token, uses npm caching from `actions/setup-node`, has job timeouts,
+and cancels older runs for the same branch or pull request. No secrets are needed.
 
 ## Deployment
 
