@@ -48,10 +48,10 @@ export const projects: readonly Project[] = [
     stack: ['Rust', 'Tokio', 'axum', 'PostgreSQL', 'sqlx'],
     highlights: [
       'Events are accepted only after the PostgreSQL commit; idempotency keys are scoped per source, enforced by a unique constraint, and exact replays are detected by request fingerprint.',
-      'Workers claim events with FOR UPDATE SKIP LOCKED under time-limited leases. Expired leases are reclaimed, giving at-least-once processing with owner-checked completion.',
-      'Bounded worker concurrency and graceful shutdown on SIGINT and SIGTERM.',
+      'Bounded worker pools claim events with FOR UPDATE SKIP LOCKED under time-limited leases. Expired leases are reclaimed, giving at-least-once processing with owner-checked completion.',
+      'Retryable and permanent failures: capped exponential backoff with deterministic jitter, and a durable dead-letter state once the attempt limit is reached.',
     ],
-    note: 'Retries, dead-lettering and metrics are planned for later milestones and are not implemented yet.',
+    note: 'Metrics, benchmarks, authentication and dead-letter redrive are planned for later milestones and are not implemented yet.',
     repoUrl: 'https://github.com/MurayaSoftTouch/PulseStream',
   },
 ]
