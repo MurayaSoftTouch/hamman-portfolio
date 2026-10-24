@@ -1,9 +1,9 @@
-# Haman Muraya — Portfolio
+# Node Nova — Portfolio
 
 [![CI](https://github.com/MurayaSoftTouch/hamman-portfolio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MurayaSoftTouch/hamman-portfolio/actions/workflows/ci.yml)
 
-Source for [hamman-portfolio.vercel.app](https://hamman-portfolio.vercel.app/), the personal site of
-Haman Muraya, a senior software engineer working on backend and distributed systems, cloud
+
+I'm a senior software engineer working on backend and distributed systems, cloud
 platforms and AI systems.
 
 The site is a small, static, single-page React application. It has no backend, no database and
